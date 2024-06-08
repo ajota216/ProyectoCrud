@@ -2,6 +2,7 @@ import pyodbc
 from database.conexion import DatabaseConnection
 from models.sucursal import Sucursal
 
+
 class SucursalController:
     def __init__(self):
         self.db = DatabaseConnection()
@@ -115,3 +116,41 @@ class SucursalController:
         finally:
             cursor.close()
             # self.connection.close()
+
+    def get_all_sucursales_names(self):
+        if not self.connection:
+            print("No connection available to get all sucursales.")
+            return []
+
+        cursor = self.connection.cursor()
+        sucursales = []
+        try:
+            cursor.execute("SELECT nombre FROM sucursal")
+            rows = cursor.fetchall()
+            for row in rows:
+                sucursales.append(row.nombre)
+            return sucursales
+        except pyodbc.Error as e:
+            print("Error al obtener todas las sucursales: ", e)
+            return []
+        finally:
+            cursor.close()
+
+    def get_all_sucursales_ids(self):
+        if not self.connection:
+            print("No connection available to get all sucursales.")
+            return []
+
+        cursor = self.connection.cursor()
+        sucursales = []
+        try:
+            cursor.execute("SELECT id FROM sucursal")
+            rows = cursor.fetchall()
+            for row in rows:
+                sucursales.append(row.id)
+            return sucursales
+        except pyodbc.Error as e:
+            print("Error al obtener todas las sucursales: ", e)
+            return []
+        finally:
+            cursor.close()
