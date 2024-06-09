@@ -23,7 +23,7 @@ class DatabaseConnection:
         try:
             # Connect to the server itself (not a specific database)
             temp_connection = pyodbc.connect(
-                f'DRIVER={{ODBC Driver 17 for SQL Server}};'
+                'DRIVER={SQL Server};'
                 f'SERVER={self.server};'
                 f'Trusted_Connection=yes;'
             )
